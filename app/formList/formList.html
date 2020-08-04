@@ -1,0 +1,79 @@
+<div class="container">
+    <ol class="breadcrumb">
+        <li><a href="#">Form Listesi</a></li>
+    </ol>
+    <div class="clear">
+        <button type="button" class="btn btn-success pull-right" ng-click="clickGenerateNewForm()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Yeni Form Oluştur</button>
+    </div>
+    <div class="clear" style="height:50px"></div>
+    <div class="panel panel-default">
+     <div class="panel-heading">
+        <div class="input-group  col-sm-4">
+            <span class="input-group-addon glyphicon glyphicon-search" style="top: 0"></span> 
+            <input type="text" ng-model="searchInput" class="form-control" placeholder="Ad, Soyad arayınız" ng-keyup="search($event)">
+        </div>
+        </div>
+        <table class="table ">
+            <thead>
+                <tr>
+                    <th>Ad</th>
+                    <th>Soyad</th>
+                    <th>Yaş</th>
+                    <th class="text-center">K. Tarihi</th>
+                    <th class="text-right">İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in liste">
+                    <td ng-repeat="f in item.fields">{{f.name}}</td>
+                    <td class="text-center">{{item.createdAt}}</td>
+                    <td class="text-right"><button type="button" class="btn btn-info" ng-click="clickDetail(item.name)">Detay</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <div ng-if="liste.length === 0"  class="text-center" style="margin:15px">Kayıt Yok!</div>
+    </div>
+</div>
+
+
+<!-- Form Giriş Pop-up'ı -->
+<div class="modal" id="modal" tabindex="-1" role="dialog">
+   <div class="modal-dialog  modal-md" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Kullanıcı Formu Girişi</h4>
+        </div>
+        <div class="modal-body">
+            <div class="alert alert-danger" ng-show="requiredAlertShow === true" role="alert">Ad, Soyad ve From Adı alanları boş bırakılamaz!</div>
+            <form class="">
+                <div class="form-group ">
+                    <label class=" control-label">Form Adı *</label>
+                    <input type="text" class="form-control"  ng-model="form.name" required>
+                </div>
+                <div class="form-group ">
+                    <label class="control-label">Açıklama</label>
+                    <textarea type="text" class="form-control"  ng-model="form.description"></textarea>
+                </div>
+                <div class=" form-group ">
+                    <hr class="formSeperator" />
+                </div>
+                <div class="form-group " ng-repeat="a in form.fields">
+                    <label class="control-label">
+                        <span ng-if="$index === 0">Ad</span>
+                        <span ng-if="$index === 1">Soyad</span>
+                        <span ng-if="$index === 2">Yaş</span>
+                        <span ng-if="a.required">*</span>
+                    </label>
+                    <div>
+                        <input type="{{a.dataType}}" class="form-control"  ng-model="a.name" ng-class="$index === 2 ? 'fYas' : '' " ng-required="{{a.required}}">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" ng-click="clickCloseModal()">Kapat</button>
+            <button type="button" class="btn btn-success" ng-click="clickSaveForm()">Kaydet</button>
+        </div>
+      </div>
+    </div>
+  </div>

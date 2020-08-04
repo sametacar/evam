@@ -1,0 +1,10 @@
+
+hr.formSeperator{ 
+    border: 0;
+    border-top: 1px dashed  rgba(0, 0, 0, 0.1);
+    /* border:2px solid red; */
+    clear: both;
+    display: block;
+}
+
+.fYas{ width: 160px}
