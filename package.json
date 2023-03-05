@@ -16,6 +16,6 @@
     "html5-boilerplate": "0.0.1"
   },
   "devDependencies": {
-    "http-server": "^0.9.0"
+    "http-server": "^14.1.1"
   }
 }
